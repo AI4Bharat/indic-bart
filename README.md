@@ -69,21 +69,20 @@ python PATH-TO-YANMTT/train_nmt.py --train_slang hi --train_tlang hi --dev_slang
 --min_decode_length_multiplier -10 --no_repeat_ngram_size 4 --length_penalty 1.0 \
 --max_eval_batches 20 --hard_truncate_length 512 
 ```
-<br>
+
 For decoding run: <br>
 ```
 decmod=BEST CHECKPOINT NAME <br>
 python PATH-TO-YANMTT/decode_nmt.py --model_path $decmod --slang hi --tlang en \
 --test_src dev.text.hi --test_tgt dev.trans --port 23352 --encoder_layers 6 \
-  --decoder_layers 6 --encoder_attention_heads 16 --decoder_attention_heads 16 \
+--decoder_layers 6 --encoder_attention_heads 16 --decoder_attention_heads 16 \
 --encoder_ffn_dim 4096 --decoder_ffn_dim 4096 --d_model 1024 \
 --tokenizer_name_or_path albert-indicunified64k --beam_size 4 \
 --max_src_length 384 --max_decode_length_multiplier -60 --min_decode_length_multiplier -10 \
 --no_repeat_ngram_size 4 --length_penalty 1.0 --hard_truncate_length 512 
 ```
 <br>
-
-4. If you want to perform additional pre-training of IndicBART or train your own then follow the instructions in: https://github.com/prajdabre/yanmtt/blob/main/examples/train_mbart_model.sh
-
+4. If you want to perform additional pre-training of IndicBART or train your own then follow the instructions in: https://github.com/prajdabre/yanmtt/blob/main/examples/train_mbart_model.sh <br>
+5. For advanced training options, look at the examples in: https://github.com/prajdabre/yanmtt/blob/main/examples 
 <br>
 Contact: (Raj Dabre) prajdabre@gmail.com for any questions
