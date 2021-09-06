@@ -6,7 +6,7 @@ How to use:
 
 2. Download the following: <br>
 Vocabulary: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/albert-indicunified64k.zip <br>
-Model: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/indicbart_model <br> 
+Model: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/indicbart_model.ckpt <br> 
 Decompress the vocabulary zip via: unzip albert-indicunified64k.zip <br>
 Sample training corpora: <br>
 https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.en-bn.bn <br>
@@ -19,19 +19,35 @@ https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.en <br>
 https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.bn <br>
 
 3. Fine-tuning via following command: <br>
-python PATH-TO-YANMTT/train_nmt.py --train_slang hi,bn --train_tlang en,en --dev_slang hi,bn --dev_tlang en,en --train_src train.en-hi.hi,train.en-bn.bn --train_tgt train.en-hi.en,train.en-bn.en --dev_src dev.hi,dev.bn --dev_tgt dev.en,dev.en --model_path model.ft --encoder_layers 6 --decoder_layers 6 --label_smoothing 0.1 --dropout 0.1 --attention_dropout 0.1 --activation_dropout 0.1 --encoder_attention_heads 16 --decoder_attention_heads 16--encoder_ffn_dim 4096 --decoder_ffn_dim 4096 --d_model 1024 --tokenizer_name_or_path albert-indicunified64k --warmup_steps 16000 --weight_decay 0.00001 --lr 0.001 --max_gradient_clip_value 1.0 --dev_batch_size 128 --port 22222 --shard_files --hard_truncate_length 256 --pretrained_model indicbart_model <br> <br>
+```
+python PATH-TO-YANMTT/train_nmt.py --train_slang hi,bn --train_tlang en,en  \
+--dev_slang hi,bn --dev_tlang en,en --train_src train.en-hi.hi,train.en-bn.bn \
+--train_tgt train.en-hi.en,train.en-bn.en --dev_src dev.hi,dev.bn --dev_tgt dev.en,dev.en \
+--model_path model.ft --encoder_layers 6 --decoder_layers 6 --label_smoothing 0.1 \
+--dropout 0.1 --attention_dropout 0.1 --activation_dropout 0.1 --encoder_attention_heads 16 \
+--decoder_attention_heads 16--encoder_ffn_dim 4096 --decoder_ffn_dim 4096 \
+--d_model 1024 --tokenizer_name_or_path albert-indicunified64k --warmup_steps 16000 \
+--weight_decay 0.00001 --lr 0.001 --max_gradient_clip_value 1.0 --dev_batch_size 128 \
+--port 22222 --shard_files --hard_truncate_length 256 --pretrained_model indicbart_model &> log
+```
 At the end of training, you should find the model with the highest BLEU score for a given language pair. This will be model.ft.best_dev_bleu.<language>-en.<counter> where language can be  hi or bn and counter can be something like 75000. The model training log will tell you what this counter is. <br>
-4. Decoding via the following command: <br>
-decmod=BEST CHECKPOINT NAME <br>
-python PATH-TO-YANMTT/decode_nmt.py --model_path $decmod --slang hi --tlang en --test_src dev.hi --test_tgt dev.trans --port 23352 --encoder_layers 6 --decoder_layers 6 --encoder_attention_heads 16 --decoder_attention_heads 16 --encoder_ffn_dim 4096 --decoder_ffn_dim 4096 --d_model 1024 --tokenizer_name_or_path albert-indicunified64k --beam_size 4 --length_penalty 0.8
 
+4. Decoding via the following command: <br>
+```
+decmod=BEST CHECKPOINT NAME <br>
+python PATH-TO-YANMTT/decode_nmt.py --model_path $decmod --slang hi --tlang en \
+--test_src dev.hi --test_tgt dev.trans --port 23352 --encoder_layers 6 --decoder_layers 6 \
+--encoder_attention_heads 16 --decoder_attention_heads 16 --encoder_ffn_dim 4096 \
+--decoder_ffn_dim 4096 --d_model 1024 --tokenizer_name_or_path albert-indicunified64k \
+--beam_size 4 --length_penalty 0.8
+```
 
 Notes:
 
 1. The Indic side of the sample data above is already mapped into devanagari so if you plan to use your own data then make sure to convert the non-English side to Devanagari using https://github.com/anoopkunchukuttan/indic_nlp_library . If you do not want to deal with this then consider using the language specific script model and vocabulary.
 2. If you want to use an IndicBART model with language specific scripts then download and use the following vocabulary and model: <br>
 Vocabulary: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/albert-indic64k.zip <br>
-Model: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/separate_script_indicbart_model <br> 
+Model: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/separate_script_indicbart_model.ckpt <br> 
 Decompress the vocabulary zip via: unzip albert-indic64k.zip <br>
 3. If you want to do summarization then first download the following document and summary data: <br>
 https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.text.hi <br>
@@ -39,11 +55,34 @@ https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.summa
 https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.text.hi <br>
 https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.summary.hi <br>
 For training run: <br>
-python PATH-TO-YANMTT/train_nmt.py --train_slang hi --train_tlang hi --dev_slang hi --dev_tlang hi --train_src train.text.hi --train_tgt train.summary.hi --dev_src dev.text.hi --dev_tgt dev.summary.hi --model_path model.ft --encoder_layers 6 --decoder_layers 6 --label_smoothing 0.1 --dropout 0.1 --attention_dropout 0.1 --activation_dropout 0.1 --encoder_attention_heads 16 --decoder_attention_heads 16--encoder_ffn_dim 4096 --decoder_ffn_dim 4096 --d_model 1024 --tokenizer_name_or_path albert-indicunified64k --warmup_steps 16000 --weight_decay 0.00001 --lr 0.0003 --max_gradient_clip_value 1.0 --dev_batch_size 128 --port 22222 --shard_files --hard_truncate_length 512 --pretrained_model indicbart_model --max_src_length 384 --max_tgt_length 40 --is_summarization --dev_batch_size 64 --max_decode_length_multiplier -60 --min_decode_length_multiplier -10 --no_repeat_ngram_size 4 --length_penalty 1.0 --max_eval_batches 20 --hard_truncate_length 512 <br>
-For decoding run: <br>
-decmod=BEST CHECKPOINT NAME <br>
-python PATH-TO-YANMTT/decode_nmt.py --model_path $decmod --slang hi --tlang en --test_src dev.text.hi --test_tgt dev.trans --port 23352 --encoder_layers 6 --decoder_layers 6 --encoder_attention_heads 16 --decoder_attention_heads 16 --encoder_ffn_dim 4096 --decoder_ffn_dim 4096 --d_model 1024 --tokenizer_name_or_path albert-indicunified64k --beam_size 4 --max_src_length 384 --max_decode_length_multiplier -60 --min_decode_length_multiplier -10 --no_repeat_ngram_size 4 --length_penalty 1.0 --hard_truncate_length 512 
+```
+python PATH-TO-YANMTT/train_nmt.py --train_slang hi --train_tlang hi --dev_slang hi --dev_tlang hi \
+--train_src train.text.hi --train_tgt train.summary.hi --dev_src dev.text.hi \
+--dev_tgt dev.summary.hi --model_path model.ft --encoder_layers 6 --decoder_layers 6 \
+--label_smoothing 0.1 --dropout 0.1 --attention_dropout 0.1 --activation_dropout 0.1 \
+--encoder_attention_heads 16 --decoder_attention_heads 16--encoder_ffn_dim 4096 \
+--decoder_ffn_dim 4096 --d_model 1024 --tokenizer_name_or_path albert-indicunified64k \
+--warmup_steps 16000 --weight_decay 0.00001 --lr 0.0003 --max_gradient_clip_value 1.0 \
+--dev_batch_size 128 --port 22222 --shard_files --hard_truncate_length 512 \
+--pretrained_model indicbart_model --max_src_length 384 --max_tgt_length 40 \
+--is_summarization --dev_batch_size 64 --max_decode_length_multiplier -60 \
+--min_decode_length_multiplier -10 --no_repeat_ngram_size 4 --length_penalty 1.0 \
+--max_eval_batches 20 --hard_truncate_length 512 
+```
 <br>
+For decoding run: <br>
+```
+decmod=BEST CHECKPOINT NAME <br>
+python PATH-TO-YANMTT/decode_nmt.py --model_path $decmod --slang hi --tlang en \
+--test_src dev.text.hi --test_tgt dev.trans --port 23352 --encoder_layers 6 \
+  --decoder_layers 6 --encoder_attention_heads 16 --decoder_attention_heads 16 \
+--encoder_ffn_dim 4096 --decoder_ffn_dim 4096 --d_model 1024 \
+--tokenizer_name_or_path albert-indicunified64k --beam_size 4 \
+--max_src_length 384 --max_decode_length_multiplier -60 --min_decode_length_multiplier -10 \
+--no_repeat_ngram_size 4 --length_penalty 1.0 --hard_truncate_length 512 
+```
+<br>
+
 4. If you want to perform additional pre-training of IndicBART or train your own then follow the instructions in: https://github.com/prajdabre/yanmtt/blob/main/examples/train_mbart_model.sh
 
 <br>
