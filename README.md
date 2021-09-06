@@ -30,7 +30,7 @@ Notes:
 
 1. The Indic side of the sample data above is already mapped into devanagari so if you plan to use your own data then make sure to convert the non-English side to Devanagari using https://github.com/anoopkunchukuttan/indic_nlp_library . If you do not want to deal with this then consider using the language specific script model and vocabulary.
 2. If you want to use an IndicBART model with language specific scripts then download and use the following vocabulary and model: <br>
-Vocabulary: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/albert-indic64k <br>
+Vocabulary: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/albert-indic64k.zip <br>
 Model: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/separate_script_indicbart_model <br> 
 Decompress the vocabulary zip via: unzip albert-indic64k.zip <br>
 3. If you want to do summarization then first download the following document and summary data: <br>
