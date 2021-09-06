@@ -5,8 +5,9 @@ How to use:
 1. Install the YANMTT toolkit from https://github.com/prajdabre/yanmtt . Make sure to create a new conda or virtual environment to ensure things work smoothly.
 
 2. Download the following: <br>
-Vocabulary: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/albert-indicunified64k <br>
+Vocabulary: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/albert-indicunified64k.zip <br>
 Model: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/indicbart_model <br> 
+Decompress the vocabulary zip via: unzip albert-indicunified64k.zip <br>
 Sample training corpora: <br>
 https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.en-bn.bn <br>
 https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.en-bn.en <br>
@@ -31,6 +32,7 @@ Notes:
 2. If you want to use an IndicBART model with language specific scripts then download and use the following vocabulary and model: <br>
 Vocabulary: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/albert-indic64k <br>
 Model: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/separate_script_indicbart_model <br> 
+Decompress the vocabulary zip via: unzip albert-indic64k.zip <br>
 3. If you want to do summarization then first download the following document and summary data: <br>
 https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.text.hi <br>
 https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.summary.hi <br>
