@@ -34,7 +34,7 @@ At the end of training, you should find the model with the highest BLEU score fo
 
 4. Decoding via the following command: <br>
 ```
-decmod=BEST CHECKPOINT NAME <br>
+decmod=BEST CHECKPOINT NAME
 python PATH-TO-YANMTT/decode_nmt.py --model_path $decmod --slang hi --tlang en \
 --test_src dev.hi --test_tgt dev.trans --port 23352 --encoder_layers 6 --decoder_layers 6 \
 --encoder_attention_heads 16 --decoder_attention_heads 16 --encoder_ffn_dim 4096 \
