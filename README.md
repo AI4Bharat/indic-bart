@@ -1,4 +1,6 @@
-# Pre-trained, multilingual sequence-to-sequence models for Indian languages
+# IndicBART
+
+_Pre-trained, multilingual sequence-to-sequence models for Indian languages_
 
 ## How to use:
 
