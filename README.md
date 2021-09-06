@@ -30,11 +30,11 @@ python PATH-TO-YANMTT/train_nmt.py --train_slang hi,bn --train_tlang en,en  \
 --weight_decay 0.00001 --lr 0.001 --max_gradient_clip_value 1.0 --dev_batch_size 128 \
 --port 22222 --shard_files --hard_truncate_length 256 --pretrained_model indicbart_model.ckpt &> log
 ```
-At the end of training, you should find the model with the highest BLEU score for a given language pair. This will be model.ft.best_dev_bleu.<language>-en.<counter> where language can be  hi or bn and counter can be something like 75000. The model training log will tell you what this counter is. <br>
+At the end of training, you should find the model with the highest BLEU score for a given language pair. This will be model.ft.best_dev_bleu.<language>-en where language can be  hi or bn. The model training log will tell you the iteration number when the best performing checkpoint was last saved. <br>
 
 4. Decoding via the following command: <br>
 ```
-decmod=BEST CHECKPOINT NAME
+decmod=BEST-CHECKPOINT-NAME
 python PATH-TO-YANMTT/decode_nmt.py --model_path $decmod --slang hi --tlang en \
 --test_src dev.hi --test_tgt dev.trans --port 23352 --encoder_layers 6 --decoder_layers 6 \
 --encoder_attention_heads 16 --decoder_attention_heads 16 --encoder_ffn_dim 4096 \
@@ -72,7 +72,7 @@ python PATH-TO-YANMTT/train_nmt.py --train_slang hi --train_tlang hi --dev_slang
 
 For decoding run: <br>
 ```
-decmod=BEST CHECKPOINT NAME
+decmod=BEST-CHECKPOINT-NAME
 python PATH-TO-YANMTT/decode_nmt.py --model_path $decmod --slang hi --tlang en \
 --test_src dev.text.hi --test_tgt dev.trans --port 23352 --encoder_layers 6 \
 --decoder_layers 6 --encoder_attention_heads 16 --decoder_attention_heads 16 \
