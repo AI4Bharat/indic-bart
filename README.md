@@ -1,24 +1,31 @@
-Pre-trained, multilingual sequence-to-sequence models for Indian languages
+# Pre-trained, multilingual sequence-to-sequence models for Indian languages
 
-How to use:
+## How to use:
 
-1. Install the YANMTT toolkit from https://github.com/prajdabre/yanmtt . Make sure to create a new conda or virtual environment to ensure things work smoothly.
+1. Install the [YANMTT toolkit](https://github.com/prajdabre/yanmtt). Make sure to create a new conda or virtual environment to ensure things work smoothly.
 
-2. Download the following: <br>
-Vocabulary: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/albert-indicunified64k.zip <br>
-Model: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/indicbart_model.ckpt <br> 
-Decompress the vocabulary zip via: unzip albert-indicunified64k.zip <br>
-Sample training corpora: <br>
-https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.en-bn.bn <br>
-https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.en-bn.en <br>
-https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.en-hi.hi <br>
-https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.en-hi.hi <br> 
-Sample development data: <br>
-https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.hi <br>
-https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.en <br>
-https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.bn <br>
+2. Download the following: 
 
-3. Fine-tuning via following command: <br>
+- [Vocabulary](https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/albert-indicunified64k.zip)
+- [Model](https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/indicbart_model.ckpt) 
+
+3. Decompress the vocabulary zip: `unzip albert-indicunified64k.zip`
+
+## Finetuning IndicBART
+
+### Sample training corpora
+
+- [en-bn.bn](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.en-bn.bn)
+- [en-bn.en](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.en-bn.en)
+- [en-hi.hi](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.en-hi.hi)
+- [en-hi.hi](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.en-hi.en) 
+
+### Sample training corpora
+
+3-way parallel: [en](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.en) [hi](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.hi) [bn](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.bn) 
+
+### Fine-tuning command
+
 ```
 python PATH-TO-YANMTT/train_nmt.py --train_slang hi,bn --train_tlang en,en  \
 --dev_slang hi,bn --dev_tlang en,en --train_src train.en-hi.hi,train.en-bn.bn \
@@ -30,9 +37,11 @@ python PATH-TO-YANMTT/train_nmt.py --train_slang hi,bn --train_tlang en,en  \
 --weight_decay 0.00001 --lr 0.001 --max_gradient_clip_value 1.0 --dev_batch_size 128 \
 --port 22222 --shard_files --hard_truncate_length 256 --pretrained_model indicbart_model.ckpt &> log
 ```
+
 At the end of training, you should find the model with the highest BLEU score for a given language pair. This will be model.ft.best_dev_bleu.<language>-en where language can be  hi or bn. The model training log will tell you the iteration number when the best performing checkpoint was last saved. <br>
 
-4. Decoding via the following command: <br>
+### Decoding via the following command:
+  
 ```
 decmod=BEST-CHECKPOINT-NAME
 python PATH-TO-YANMTT/decode_nmt.py --model_path $decmod --slang hi --tlang en \
@@ -42,9 +51,9 @@ python PATH-TO-YANMTT/decode_nmt.py --model_path $decmod --slang hi --tlang en \
 --beam_size 4 --length_penalty 0.8
 ```
 
-Notes:
+### Notes:
 
-1. The Indic side of the sample data above is already mapped into devanagari so if you plan to use your own data then make sure to convert the non-English side to Devanagari using https://github.com/anoopkunchukuttan/indic_nlp_library . If you do not want to deal with this then consider using the language specific script model and vocabulary.
+1. The Indic side of the sample data above is already mapped into Devanagari so if you plan to use your own data then make sure to convert the non-English side to Devanagari using https://github.com/anoopkunchukuttan/indic_nlp_library . If you do not want to deal with this then consider using the language specific script model and vocabulary.
 2. If you want to use an IndicBART model with language specific scripts then download and use the following vocabulary and model: <br>
 Vocabulary: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/albert-indic64k.zip <br>
 Model: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/separate_script_indicbart_model.ckpt <br> 
