@@ -72,7 +72,7 @@ python PATH-TO-YANMTT/train_nmt.py --train_slang hi --train_tlang hi --dev_slang
 
 For decoding run: <br>
 ```
-decmod=BEST CHECKPOINT NAME <br>
+decmod=BEST CHECKPOINT NAME
 python PATH-TO-YANMTT/decode_nmt.py --model_path $decmod --slang hi --tlang en \
 --test_src dev.text.hi --test_tgt dev.trans --port 23352 --encoder_layers 6 \
 --decoder_layers 6 --encoder_attention_heads 16 --decoder_attention_heads 16 \
