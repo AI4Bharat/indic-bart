@@ -25,10 +25,10 @@ python PATH-TO-YANMTT/train_nmt.py --train_slang hi,bn --train_tlang en,en  \
 --train_tgt train.en-hi.en,train.en-bn.en --dev_src dev.hi,dev.bn --dev_tgt dev.en,dev.en \
 --model_path model.ft --encoder_layers 6 --decoder_layers 6 --label_smoothing 0.1 \
 --dropout 0.1 --attention_dropout 0.1 --activation_dropout 0.1 --encoder_attention_heads 16 \
---decoder_attention_heads 16--encoder_ffn_dim 4096 --decoder_ffn_dim 4096 \
+--decoder_attention_heads 16 --encoder_ffn_dim 4096 --decoder_ffn_dim 4096 \
 --d_model 1024 --tokenizer_name_or_path albert-indicunified64k --warmup_steps 16000 \
 --weight_decay 0.00001 --lr 0.001 --max_gradient_clip_value 1.0 --dev_batch_size 128 \
---port 22222 --shard_files --hard_truncate_length 256 --pretrained_model indicbart_model &> log
+--port 22222 --shard_files --hard_truncate_length 256 --pretrained_model indicbart_model.ckpt &> log
 ```
 At the end of training, you should find the model with the highest BLEU score for a given language pair. This will be model.ft.best_dev_bleu.<language>-en.<counter> where language can be  hi or bn and counter can be something like 75000. The model training log will tell you what this counter is. <br>
 
@@ -64,7 +64,7 @@ python PATH-TO-YANMTT/train_nmt.py --train_slang hi --train_tlang hi --dev_slang
 --decoder_ffn_dim 4096 --d_model 1024 --tokenizer_name_or_path albert-indicunified64k \
 --warmup_steps 16000 --weight_decay 0.00001 --lr 0.0003 --max_gradient_clip_value 1.0 \
 --dev_batch_size 128 --port 22222 --shard_files --hard_truncate_length 512 \
---pretrained_model indicbart_model --max_src_length 384 --max_tgt_length 40 \
+--pretrained_model indicbart_model.ckpt --max_src_length 384 --max_tgt_length 40 \
 --is_summarization --dev_batch_size 64 --max_decode_length_multiplier -60 \
 --min_decode_length_multiplier -10 --no_repeat_ngram_size 4 --length_penalty 1.0 \
 --max_eval_batches 20 --hard_truncate_length 512 
