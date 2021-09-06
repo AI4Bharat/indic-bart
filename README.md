@@ -1,2 +1,50 @@
-# indic-bart
 Pre-trained, multilingual sequence-to-sequence models for Indian languages
+
+How to use:
+
+1. Install the YANMTT toolkit from https://github.com/prajdabre/yanmtt . Make sure to create a new conda or virtual environment to ensure things work smoothly.
+
+2. Download the following: <br>
+Vocabulary: https://console.cloud.google.com/storage/browser/ai4bharat-indicnlg-public/albert-indicunified64k <br>
+Model: https://console.cloud.google.com/storage/browser/_details/ai4bharat-indicnlg-public/indicbart_model <br> 
+Sample training corpora: <br>
+https://console.cloud.google.com/storage/browser/_details/ai4bharat-indicnlg-public/train.en-bn.bn <br>
+https://console.cloud.google.com/storage/browser/_details/ai4bharat-indicnlg-public/train.en-bn.en <br>
+https://console.cloud.google.com/storage/browser/_details/ai4bharat-indicnlg-public/train.en-hi.hi <br>
+https://console.cloud.google.com/storage/browser/_details/ai4bharat-indicnlg-public/train.en-hi.hi <br> 
+Sample development data: <br>
+https://console.cloud.google.com/storage/browser/_details/ai4bharat-indicnlg-public/dev.hi <br>
+https://console.cloud.google.com/storage/browser/_details/ai4bharat-indicnlg-public/dev.en <br>
+https://console.cloud.google.com/storage/browser/_details/ai4bharat-indicnlg-public/dev.bn <br>
+
+3. Fine-tuning via following command: <br>
+python PATH-TO-YANMTT/train_nmt.py --train_slang hi,bn --train_tlang en,en --dev_slang hi,bn --dev_tlang en,en --train_src train.en-hi.hi,train.en-bn.bn --train_tgt train.en-hi.en,train.en-bn.en --dev_src dev.hi,dev.bn --dev_tgt dev.en,dev.en --model_path model.ft --encoder_layers 6 --decoder_layers 6 --label_smoothing 0.1 --dropout 0.1 --attention_dropout 0.1 --activation_dropout 0.1 --encoder_attention_heads 16 --decoder_attention_heads 16--encoder_ffn_dim 4096 --decoder_ffn_dim 4096 --d_model 1024 --tokenizer_name_or_path albert-indicunified64k --warmup_steps 16000 --weight_decay 0.00001 --lr 0.001 --max_gradient_clip_value 1.0 --dev_batch_size 128 --port 22222 --shard_files --hard_truncate_length 256 --pretrained_model indicbart_model
+<br>
+At the end of training, you should find the model with the highest BLEU score for a given language pair. This will be model.ft.best_dev_bleu.<language>-en.<counter> where language can be  hi or bn and counter can be something like 75000. The model training log will tell you what this counter is.
+4. Decoding via the following command: <br>
+decmod=BEST CHECKPOINT NAME <br>
+python PATH-TO-YANMTT/decode_nmt.py --model_path $decmod --slang hi --tlang en --test_src dev.hi --test_tgt dev.trans --port 23352 --encoder_layers 6 --decoder_layers 6 --encoder_attention_heads 16 --decoder_attention_heads 16 --encoder_ffn_dim 4096 --decoder_ffn_dim 4096 --d_model 1024 --tokenizer_name_or_path albert-indicunified64k --beam_size 4 --length_penalty 0.8
+
+
+Notes:
+
+1. The Indic side of the sample data above is already mapped into devanagari so if you plan to use your own data then make sure to convert the non-English side to Devanagari using https://github.com/anoopkunchukuttan/indic_nlp_library . If you do not want to deal with this then consider using the language specific script model and vocabulary.
+2. If you want to use an IndicBART model with language specific scripts then download and use the following vocabulary and model: <br>
+Vocabulary: https://console.cloud.google.com/storage/browser/ai4bharat-indicnlg-public/albert-indic64k <br>
+Model: https://console.cloud.google.com/storage/browser/_details/ai4bharat-indicnlg-public/separate_script_indicbart_model <br> 
+3. If you want to do summarization then first download the following document and summary data: <br>
+https://console.cloud.google.com/storage/browser/_details/ai4bharat-indicnlg-public/train.text.hi <br>
+https://console.cloud.google.com/storage/browser/_details/ai4bharat-indicnlg-public/train.summary.hi <br>
+https://console.cloud.google.com/storage/browser/_details/ai4bharat-indicnlg-public/dev.text.hi <br>
+https://console.cloud.google.com/storage/browser/_details/ai4bharat-indicnlg-public/dev.summary.hi <br>
+For training run: <br>
+python PATH-TO-YANMTT/train_nmt.py --train_slang hi --train_tlang hi --dev_slang hi --dev_tlang hi --train_src train.text.hi --train_tgt train.summary.hi --dev_src dev.text.hi --dev_tgt dev.summary.hi --model_path model.ft --encoder_layers 6 --decoder_layers 6 --label_smoothing 0.1 --dropout 0.1 --attention_dropout 0.1 --activation_dropout 0.1 --encoder_attention_heads 16 --decoder_attention_heads 16--encoder_ffn_dim 4096 --decoder_ffn_dim 4096 --d_model 1024 --tokenizer_name_or_path albert-indicunified64k --warmup_steps 16000 --weight_decay 0.00001 --lr 0.0003 --max_gradient_clip_value 1.0 --dev_batch_size 128 --port 22222 --shard_files --hard_truncate_length 512 --pretrained_model indicbart_model --max_src_length 384 --max_tgt_length 40 --is_summarization --dev_batch_size 64 --max_decode_length_multiplier -60 --min_decode_length_multiplier -10 --no_repeat_ngram_size 4 --length_penalty 1.0 --max_eval_batches 20 --hard_truncate_length 512
+<br>
+For decoding run: <br>
+decmod=BEST CHECKPOINT NAME <br>
+python PATH-TO-YANMTT/decode_nmt.py --model_path $decmod --slang hi --tlang en --test_src dev.text.hi --test_tgt dev.trans --port 23352 --encoder_layers 6 --decoder_layers 6 --encoder_attention_heads 16 --decoder_attention_heads 16 --encoder_ffn_dim 4096 --decoder_ffn_dim 4096 --d_model 1024 --tokenizer_name_or_path albert-indicunified64k --beam_size 4 --max_src_length 384 --max_decode_length_multiplier -60 --min_decode_length_multiplier -10 --no_repeat_ngram_size 4 --length_penalty 1.0 --hard_truncate_length 512 
+<br>
+4. If you want to perform additional pre-training of IndicBART or train your own then follow the instructions in: https://github.com/prajdabre/yanmtt/blob/main/examples/train_mbart_model.sh
+
+<br>
+Contact: prajdabre@gmail.com for any questions.
