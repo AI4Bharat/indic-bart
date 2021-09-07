@@ -8,8 +8,8 @@ _Pre-trained, multilingual sequence-to-sequence models for Indian languages_
 
 2. Download the following: 
 
-- [Vocabulary](https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/albert-indicunified64k.zip)
-- [Model](https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/indicbart_model.ckpt) 
+    - [Vocabulary](https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/albert-indicunified64k.zip)
+    - [Model](https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/indicbart_model.ckpt) 
 
 3. Decompress the vocabulary zip: `unzip albert-indicunified64k.zip`
 
