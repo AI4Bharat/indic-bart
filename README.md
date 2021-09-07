@@ -4,10 +4,9 @@ _Pre-trained, multilingual sequence-to-sequence models for Indian languages_
 
 You can read more about IndicBART [here](https://indicnlp.ai4bharat.org/indic-bart). IndicBART is part of the [AI4Bharat tools for Indian languages](https://indicnlp.ai4bharat.org).
 
-## How to use:
+## Installation
 
 1. Install the [YANMTT toolkit](https://github.com/prajdabre/yanmtt). Make sure to create a new conda or virtual environment to ensure things work smoothly.
-
 2. Download the following: 
 
     - **v1** [(Vocabulary)](https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/albert-indicunified64k.zip) 
@@ -15,7 +14,7 @@ You can read more about IndicBART [here](https://indicnlp.ai4bharat.org/indic-ba
 
 3. Decompress the vocabulary zip: `unzip albert-indicunified64k.zip`
 
-## Finetuning IndicBART
+## Finetuning IndicBART for NMT
 
 ### Sample training corpora
 
@@ -27,6 +26,11 @@ You can read more about IndicBART [here](https://indicnlp.ai4bharat.org/indic-ba
 ### Sample development set
 
 3-way parallel: [en](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.en) [hi](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.hi) [bn](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.bn) 
+
+### Script conversion
+
+- The Indic side of the data needs to converted to the Devanagari script. This can be done using the [Indic NLP Library](https://github.com/anoopkunchukuttan/indic_nlp_library). _(Sample code coming soon)_
+- The sample data provided above has already been converted to the Devanagari script, so you can use it as is. 
 
 ### Fine-tuning command
 
@@ -58,17 +62,24 @@ python PATH-TO-YANMTT/decode_nmt.py --model_path $decmod --slang hi --tlang en \
 
 ### Notes:
 
-1. The Indic side of the sample data above is already mapped into Devanagari so if you plan to use your own data then make sure to convert the non-English side to Devanagari using the [Indic NLP Library](https://github.com/anoopkunchukuttan/indic_nlp_library . If you do not want to deal with this then consider using the language specific script model and vocabulary.
-2. If you want to use an IndicBART model with language specific scripts then download and use the following vocabulary and model: <br>
-Vocabulary: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/albert-indic64k.zip <br>
-Model: https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/separate_script_indicbart_model.ckpt <br> 
-Decompress the vocabulary zip via: unzip albert-indic64k.zip <br>
-3. If you want to do summarization then first download the following document and summary data: <br>
-https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.text.hi <br>
-https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.summary.hi <br>
-https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.text.hi <br>
-https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.summary.hi <br>
-For training run: <br>
+
+1. If you want to use an IndicBART model with language specific scripts, we provide that variant as well: [(Vocabulary)](https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/albert-indic64k.zip) [(Model)](https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/separate_script_indicbart_model.ckpt) 
+    
+2. If you want to perform additional pre-training of IndicBART or train your own then follow the instructions in: https://github.com/prajdabre/yanmtt/blob/main/examples/train_mbart_model.sh 
+    
+3. For advanced training options, look at the examples in: https://github.com/prajdabre/yanmtt/blob/main/examples 
+   
+## Finetuning IndicBART for Summarization
+
+### Sample Corpus
+
+- [train document](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.text.hi)
+- [train summary](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.summary.hi)
+- [dev document](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.text.hi)
+- [dev summary](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.summary.hi) 
+
+### Fine-tuning command
+
 ```
 python PATH-TO-YANMTT/train_nmt.py --train_slang hi --train_tlang hi --dev_slang hi --dev_tlang hi \
     --train_src train.text.hi --train_tgt train.summary.hi --dev_src dev.text.hi \
@@ -84,7 +95,8 @@ python PATH-TO-YANMTT/train_nmt.py --train_slang hi --train_tlang hi --dev_slang
     --max_eval_batches 20 --hard_truncate_length 512 
 ```
 
-For decoding run: <br>
+### Decoding command
+  
 ```
 decmod=BEST-CHECKPOINT-NAME
     
@@ -95,11 +107,7 @@ python PATH-TO-YANMTT/decode_nmt.py --model_path $decmod --slang hi --tlang en \
     --tokenizer_name_or_path albert-indicunified64k --beam_size 4 \
     --max_src_length 384 --max_decode_length_multiplier -60 --min_decode_length_multiplier -10 \
     --no_repeat_ngram_size 4 --length_penalty 1.0 --hard_truncate_length 512 
-```
-<br>
-4. If you want to perform additional pre-training of IndicBART or train your own then follow the instructions in: https://github.com/prajdabre/yanmtt/blob/main/examples/train_mbart_model.sh <br>
-5. For advanced training options, look at the examples in: https://github.com/prajdabre/yanmtt/blob/main/examples 
-<br>
+```  
     
 ## Contributors
     
