@@ -22,7 +22,7 @@ _Pre-trained, multilingual sequence-to-sequence models for Indian languages_
 - [en-hi.hi](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.en-hi.hi)
 - [en-hi.hi](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.en-hi.en) 
 
-### Sample training corpora
+### Sample development set
 
 3-way parallel: [en](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.en) [hi](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.hi) [bn](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/dev.bn) 
 
