@@ -112,7 +112,11 @@ python PATH-TO-YANMTT/decode_nmt.py --model_path $decmod --slang hi --tlang en \
 ## Contributors
     
 - [Raj Dabre](prajdabre@gmail.com)
+- Himani Shrotriya
 - [Anoop Kunchukuttan](anoop.kunchukuttan@gmail.com)
+- Ratish Puduppully 
+- Mitesh M. Khapra  
+- Pratyush Kumar
 
 ## Citing
     
