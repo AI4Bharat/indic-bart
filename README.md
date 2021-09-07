@@ -96,4 +96,12 @@ python PATH-TO-YANMTT/decode_nmt.py --model_path $decmod --slang hi --tlang en \
 4. If you want to perform additional pre-training of IndicBART or train your own then follow the instructions in: https://github.com/prajdabre/yanmtt/blob/main/examples/train_mbart_model.sh <br>
 5. For advanced training options, look at the examples in: https://github.com/prajdabre/yanmtt/blob/main/examples 
 <br>
-Contact: (Raj Dabre) prajdabre@gmail.com for any questions
+    
+## Contributors
+    
+- [Raj Dabre](prajdabre@gmail.com)
+- ...
+    
+## License
+    
+IndicBART is licensed under the MIT License    
