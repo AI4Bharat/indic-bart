@@ -4,6 +4,8 @@ _Pre-trained, multilingual sequence-to-sequence models for Indian languages_
 
 You can read more about IndicBART [here](https://indicnlp.ai4bharat.org/indic-bart). IndicBART is part of the [AI4Bharat tools for Indian languages](https://indicnlp.ai4bharat.org).
 
+You can read more about IndicBART [in this paper](https://arxiv.org/abs/2109.02903).
+
 ## Installation
 
 1. Install the [YANMTT toolkit](https://github.com/prajdabre/yanmtt). Make sure to create a new conda or virtual environment to ensure things work smoothly.
@@ -120,7 +122,7 @@ python PATH-TO-YANMTT/decode_nmt.py --model_path $decmod --slang hi --tlang en \
 
 ## Citing
     
-If you use IndicBART in your work, please cite:
+If you use IndicBART, please cite the [following paper](https://arxiv.org/abs/2109.02903):
 
 ```
 @misc{dabre2021indicbart,
