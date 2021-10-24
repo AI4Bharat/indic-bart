@@ -87,7 +87,7 @@ python PATH-TO-YANMTT/train_nmt.py --train_slang hi --train_tlang hi --dev_slang
     --train_src train.text.hi --train_tgt train.summary.hi --dev_src dev.text.hi \
     --dev_tgt dev.summary.hi --model_path model.ft --encoder_layers 6 --decoder_layers 6 \
     --label_smoothing 0.1 --dropout 0.1 --attention_dropout 0.1 --activation_dropout 0.1 \
-    --encoder_attention_heads 16 --decoder_attention_heads 16--encoder_ffn_dim 4096 \
+    --encoder_attention_heads 16 --decoder_attention_heads 16 --encoder_ffn_dim 4096 \
     --decoder_ffn_dim 4096 --d_model 1024 --tokenizer_name_or_path albert-indicunified64k \
     --warmup_steps 16000 --weight_decay 0.00001 --lr 0.0003 --max_gradient_clip_value 1.0 \
     --dev_batch_size 128 --port 22222 --shard_files --hard_truncate_length 512 \
