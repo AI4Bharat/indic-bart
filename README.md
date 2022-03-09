@@ -31,11 +31,12 @@ You can read more about IndicBART [in this paper](https://arxiv.org/abs/2109.029
 
 ### Script conversion
 
-- The Indic side of the data needs to converted to the Devanagari script. You may use this [indic_scriptmap.py](https://github.com/AI4Bharat/indic-bart/blob/main/indic_scriptmap.py).
-- This script depends on [Indic NLP Library](https://github.com/anoopkunchukuttan/indic_nlp_library) and [Indic NLP Resources](https://github.com/anoopkunchukuttan/indic_nlp_resources) which should be installed. Following this, change the paths in lines 13 and 16 in [indic_scriptmap.py](https://github.com/AI4Bharat/indic-bart/blob/main/indic_scriptmap.py).
-- Usage: python indic_scriptmap.py <input_file> <output_file> <source_language> <target_language> 
-- Example: python indic_scriptmap.py input.txt output.txt ta hi
-- This will map the script in the input.txt file from Tamil to Hindi.
+- The Indic side of the data needs to converted to the Devanagari script. You may use the [indic_scriptmap.py](https://github.com/AI4Bharat/indic-bart/blob/main/indic_scriptmap.py) script.
+    - This script depends on [Indic NLP Library](https://github.com/anoopkunchukuttan/indic_nlp_library) and [Indic NLP Resources](https://github.com/anoopkunchukuttan/indic_nlp_resources) which should be manually installed. 
+    - Following this, change the paths in lines 13 and 16 in [indic_scriptmap.py](https://github.com/AI4Bharat/indic-bart/blob/main/indic_scriptmap.py).
+    - Usage: python indic_scriptmap.py <input_file> <output_file> <source_language> <target_language> 
+    - Example: python indic_scriptmap.py input.txt output.txt ta hi
+    - This will map the script in the input.txt file from Tamil to Hindi.
 - The sample data provided above has already been converted to the Devanagari script, so you can use it as is. 
 
 ### Fine-tuning command
