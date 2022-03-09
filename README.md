@@ -136,6 +136,8 @@ If you use IndicBART, please cite the [following paper](https://arxiv.org/abs/21
       year={2021},
       eprint={2109.02903},
       archivePrefix={arXiv},
+      booktitle = "Findings of the Association for Computational Linguistics: ACL 2022",
+      publisher = "Association for Computational Linguistics",
       primaryClass={cs.CL}
     }    
 ```   
