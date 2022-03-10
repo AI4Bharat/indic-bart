@@ -8,7 +8,7 @@ You can read more about IndicBART [in this paper](https://arxiv.org/abs/2109.029
 
 ## Installation
 
-1. Install the [YANMTT toolkit](https://github.com/prajdabre/yanmtt). Make sure to create a new conda or virtual environment to ensure things work smoothly.
+1. Install the [YANMTT toolkit](https://github.com/prajdabre/yanmtt). Checkout the v1.0 release via "**git checkout v1.0**". Make sure to create a new conda or virtual environment to ensure things work smoothly.
 2. Download the following: 
 
     - **v1** [(Vocabulary)](https://storage.googleapis.com/ai4bharat-indicnlg-public/indic-bart-v1/albert-indicunified64k.zip) 
