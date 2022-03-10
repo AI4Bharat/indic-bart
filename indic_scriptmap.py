@@ -34,7 +34,6 @@ from indicnlp import loader
 
 common.set_resources_path(INDIC_NLP_RESOURCES)
 
-from indicnlp.normalize.indic_normalize import IndicNormalizerFactory
 from indicnlp.transliterate.unicode_transliterate import UnicodeIndicTransliterator as script_conv
 
 if len(sys.argv) < 5:
