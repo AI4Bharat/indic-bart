@@ -23,7 +23,7 @@ You can read more about IndicBART [in this paper](https://arxiv.org/abs/2109.029
 - [en-bn.bn](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.en-bn.bn)
 - [en-bn.en](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.en-bn.en)
 - [en-hi.hi](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.en-hi.hi)
-- [en-hi.hi](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.en-hi.en) 
+- [en-hi.en](https://storage.googleapis.com/ai4bharat-indicnlg-public/sample_data/train.en-hi.en) 
 
 ### Sample development set
 
