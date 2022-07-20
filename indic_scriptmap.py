@@ -31,10 +31,10 @@ import shutil
 
 from indicnlp import common
 from indicnlp import loader
-
 common.set_resources_path(INDIC_NLP_RESOURCES)
-
 from indicnlp.transliterate.unicode_transliterate import UnicodeIndicTransliterator as script_conv
+
+loader.load()
 
 if len(sys.argv) < 5:
 	print("Usage: python indic_scriptmap.py <input_file> <output_file> <source_language> <target_language>")
